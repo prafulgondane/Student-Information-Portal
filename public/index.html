@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Student Information Portal</title>
+<meta name="keywords" content="Lin Photo, free website template, XHTML CSS layout" />
+<meta name="description" content="Lin Photo, free website template, free XHTML CSS layout provided by templatemo.com" />
+<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+  
+  <script src="js/angular.js" ></script>
+  <script src="js/controller.js" ></script>
+
+<script language="javascript" type="text/javascript">
+function clearText(field){
+
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+
+}
+</script>
+</head>
+<body ng-app="">
+
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=332829403572734&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>    
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '332829403572734',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
+
+
+<div id="templatemo_container" ng-controller="ServicesCtrl">
+	<div id="templatemo_banner">
+    	<div id="logo"></div>
+
+
+        <div id="search_section">
+           
+            <form novalidate>
+                <input type="text" id="searchfield" required="" placeholder="Enter RollNo" ng-model="rollno"/>
+                <button type="submit" name="Search" value="Search" alt="Search" id="searchbutton" title="Search" ng-click="find(rollno)">Search</button>
+            </form>
+          
+        </div> 
+
+
+    </div> <!-- end of banner -->
+    
+    <div id="templatemo_menu">
+             <div class="fb-share-button" data-href="http://192.168.42.65:3000/" data-layout="button_count"></div>
+  	</div> <!-- end of menu -->
+
+
+
+	<div id="templatemo_content_wrapper">
+    	<div id="templatemo_content">
+    
+        	<div class="column_w210 fl vr_divider">
+            
+                    	  <div class="header_01">
+                        	Insert Data
+                        </div>
+                               <font color="red" size="2"> {{msg_i}} </font>
+
+
+                          <form novalidate>
+                              <input type="text" required="" id="namefield" name="rollno" placeholder="Enter RollNo" ng-model="serviceData.rollno"/>
+
+                              <div class="margin_bottom_10"></div>
+
+                              <input type="text" required="" id="namefield" name="name" placeholder="Enter Name" ng-model="serviceData.name"/>
+                
+                              <div class="margin_bottom_10"></div>
+
+                              <input type="text" required="" id="namefield" name="grade" placeholder="Enter Grade" ng-model="serviceData.grade"/>
+
+                              <div class="margin_bottom_10"></div>
+
+                              <button type="submit" id="insertbutton" title="Insert" ng-click="create(serviceData.rollno, serviceData.name, serviceData.grade)">INSERT</button> 
+
+                          </form>
+
+                
+            
+                      	<div class="cleaner"></div>
+
+            </div> <!-- end of a column -->
+        
+            <div class="column_w430 fl">
+            	
+                <div class="header_01">Student Information Portal</div>
+
+                    <table class="tbl" cellpadding="3" cellspacing="12">
+                      <tr>
+                              <th>Roll No</th>
+                              <th>Name</th>
+                              <th>Grade</th>
+                      </tr>
+                      <tr ng-repeat="serviceClient in serviceClients | filter : rollno | orderBy:'rollno'">
+                              <td>
+                                  {{serviceClient.rollno}}
+                              </td>
+                              <td>
+                                  {{serviceClient.name}}
+                              </td>
+                              <td>
+                                  {{serviceClient.grade}}
+                              </td>
+                              <td>
+                                  <button type="submit" id="removebutton" title="Remove" ng-click="remove(serviceClient._id)">REMOVE</button>
+                              </td>
+                              <td>
+                                  <button type="submit" id="selectbutton" title="Select" ng-click="select(serviceClient._id)">SELECT</button>
+                              </td>                        
+                      </tr>
+                      <tr ng-repeat="findClient in findClients">
+                              <td>
+                                  {{findClient.rollno}}
+                              </td>
+                              <td>
+                                  {{findClient.name}}
+                              </td>
+                              <td>
+                                  {{findClient.grade}}
+                              </td>
+                              <td>
+                                  <button type="submit" id="removebutton" title="Remove" ng-click="remove(serviceClient._id)">REMOVE</button>
+                              </td>
+                              <td>
+                                  <button type="submit" id="selectbutton" title="Select" ng-click="select(serviceClient._id)">SELECT</button>
+                              </td>                        
+                      </tr>                  
+                    </table>
+            
+            	<div class="cleaner"></div>        
+            </div> <!-- end of a column -->
+        
+         <div class="column_w210 fl vl_divider">
+          
+          	<div class="header_01">
+              	Update Data
+              </div>
+                      <font color="red" size="2">{{msg_u}}</font>
+
+                  <form name="myForm" novalidate>
+                      <input type="text" name="rollno" required="" placeholder="Enter New RollNo" id="namefield" ng-model="updateServiceData.rollno"/>
+
+                      <span style="color:red" ng-show="myForm.rollno.$dirty && myForm.rollno.$invalid">
+                      </span>
+
+                      <div class="margin_bottom_10"></div>
+
+                      <input type="text" name="name" required="" placeholder="Enter New Name" id="namefield" ng-model="updateServiceData.name"/>
+
+                      <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+                      </span>
+
+                      <div class="margin_bottom_10"></div>
+
+                      <input type="text" name="grade" required="" placeholder="Enter New Grade" id="namefield" ng-model="updateServiceData.grade"/>
+
+                      <span style="color:red" ng-show="myForm.grade.$dirty && myForm.grade.$invalid">
+                      </span>
+
+
+                      <div class="margin_bottom_10"></div>
+
+                      <button type="submit" id="updatebutton" title="Update" ng-click="update(updateServiceData.rollno, updateServiceData.name, updateServiceData.grade)">UPDATE</button>
+
+                  </form>            
+          
+          	<div class="cleaner"></div>
+
+          </div> <!-- end of a column -->
+        
+            <div class="margin_bottom_20 h_divider"></div>        
+            <div class="margin_bottom_20"></div>
+            
+            <div class="column_w920">
+              <div class="margin_bottom_15"></div>
+            </div>
+        
+          	<div class="cleaner"></div>
+	     </div> <!-- end of wrapper 02 -->        
+    </div> <!-- end of wrapper 01 -->
+    
+    <div id="templatemo_footer">
+    
+
+        
+        <div class="margin_bottom_10"></div>
+        
+        Copyright © 2014 <a href="#">VNIT NAGPUR</a> | <a href="#" target="_parent">Website</a> by <a href="#" target="_parent">Praful Gondane</a>
+        
+        <div class="margin_bottom_10"></div>
+        
+
+                
+   	</div> <!-- end of footer -->
+</div> <!-- end of container -->
+<!--  Free CSS Template is provided by www.TemplateMo.com  -->
+</body>
+</html>

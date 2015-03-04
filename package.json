@@ -1,0 +1,25 @@
+{
+  "name": "Student-Information-Portal",
+  "version": "0.1.2",
+  "description": "A sample Node.js app using Express 4",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "~4.2.x"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prafulgondane/Student-Information-Portal.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "VNIT"
+}

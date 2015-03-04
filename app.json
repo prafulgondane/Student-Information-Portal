@@ -1,0 +1,6 @@
+{
+  "name": "Student-Information-Portal",
+  "description": "A barebones Node.js app using Express 4",
+  "repository": "https://github.com/prafulgondane/Student-Information-Portal.git",
+  "keywords": ["node", "express", "static"]
+}

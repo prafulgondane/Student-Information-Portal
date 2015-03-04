@@ -1,0 +1,12 @@
+#searchfield {
+	height: 16px;
+	width: 180px;
+	padding: 5px;
+	margin: 0px;
+	color: #ffffff;
+	font-size: 12px;
+	font-variant: normal;
+	line-height: normal;
+	background: #af1313;
+	border: 1px solid #000000;	
+}
